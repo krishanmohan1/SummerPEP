@@ -1,0 +1,24 @@
+REST API (Architecture)
+design principle for creating API 
+
+REST - The full form of REST API is Representational State Transfer API. It's a set of architectural principles for designing networked applications, particularly web services. REST APIs use standard HTTP methods (like GET, POST, PUT, DELETE) to interact with resources, often represented in formats like JSON or XML, and are known for their stateless, client-server architecture. 
+
+- client server Independence    - this format is JSON   (the response should be understand by all the interface)
+- stateless  - url should not contain data
+- url
+- http methods  (GET, POST, PUT (used for static file , life for image), DELETE, patch) only get and post can do all do 
+
+- Resouce based = never mentioned the verb (get , push , post )methohd in resources
+-In REST APIs, a resource is any piece of data or information that can be accessed and manipulated via HTTP methods. Resources are identified by unique URIs (Uniform Resource Identifiers) and represent concepts like users, products, or documents. 
+
+-What is REST And RESTFULL - In the context of APIs, "REST" refers to the architectural style, while "RESTful" describes an API that adheres to the principles of REST. Essentially, REST is the theory, and RESTful is the practical application of that theory in an API. 
+
+
+- middleware - order matters , and use next() to pass control
+
+####### MONGODB
+- collection
+- documents
+
+-- {} --> BSON (Binary JSON)
+

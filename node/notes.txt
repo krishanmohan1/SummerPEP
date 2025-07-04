@@ -1,0 +1,140 @@
+REST    - arcthitecture rules pr
+
+-stateless
+-client-server independence
+-http method 
+-resouce (verb nhi aana chahiye ) it is resource based
+
+
+MIDDLEWARE
+
+- 🔍 What is Middleware in Express.js?
+In Express, a middleware is a function that sits between the request and response cycle.
+
+It has access to:
+
+js
+Copy
+Edit
+(req, res, next)
+✅ What Middleware Can Do?
+Middleware can:
+
+🔐 Authenticate or authorize users
+
+🧼 Validate or sanitize input data
+
+📊 Log requests
+
+📦 Parse incoming data (like JSON)
+
+🛑 Handle errors
+
+🔁 Modify request/response
+
+🔁 Basic Flow
+plaintext
+Copy
+Edit
+Client Request
+   ↓
+[Middleware 1]
+   ↓
+[Middleware 2]
+   ↓
+[Route Handler (your logic)]
+   ↓
+Server Response
+✅ Syntax of Middleware
+js
+Copy
+Edit
+function middleware(req, res, next) {
+    // do something
+    next(); // passes control to next middleware
+}
+🔧 Built-in Middleware Example
+js
+Copy
+Edit
+app.use(express.json()); 
+📌 This parses incoming JSON data and puts it into req.body.
+
+🛠 Custom Middleware Example
+js
+Copy
+Edit
+// Logger middleware
+const logger = (req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next(); // continue to the next step
+};
+
+app.use(logger); // Apply middleware globally
+Whenever a request comes in, it logs the method and URL.
+
+🔐 Example: Auth Middleware
+js
+Copy
+Edit
+const isAuthenticated = (req, res, next) => {
+    const token = req.headers.authorization;
+
+    if (token === "valid-token") {
+        next(); // allow access
+    } else {
+        res.status(401).json({ message: "Unauthorized" });
+    }
+};
+
+// Protect this route
+app.get('/dashboard', isAuthenticated, (req, res) => {
+    res.send("Welcome to your dashboard");
+});
+📦 Types of Middleware in Express
+Type	Description	Example
+Application-level	Applied to all or specific routes	app.use() or app.get()
+Router-level	Applied to a specific router (e.g., userRouter)	userRouter.use()
+Error-handling	Catches errors	(err, req, res, next)
+Built-in	Provided by Express (e.g., express.json)	
+Third-party	External packages (e.g., cors, morgan)	
+
+📌 Middleware Execution Order Matters
+js
+Copy
+Edit
+app.use(middleware1);
+app.use(middleware2);
+app.get('/', routeHandler);
+This runs in order: middleware1 → middleware2 → routeHandler
+
+🧪 Test With Example
+js
+Copy
+Edit
+const express = require('express');
+const app = express();
+
+// Global middleware
+app.use((req, res, next) => {
+    console.log('This is middleware');
+    next();
+});
+
+// Route
+app.get('/', (req, res) => {
+    res.send('Hello from Home Route');
+});
+
+app.listen(3000, () => {
+    console.log('Server running on port 3000');
+});
+Would you like me to:
+
+Write middleware to validate user input?
+
+Show how to use JWT auth middleware?
+
+Handle errors using middleware?
+
+Just say the word — I’ll code it for you! 💻🔥
