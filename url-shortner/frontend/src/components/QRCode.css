@@ -1,0 +1,502 @@
+/* QR Code Component Styles */
+.qr-code-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.qr-canvas-small {
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.qr-loading-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  font-size: 12px;
+  color: #6b7280;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.qr-error-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  font-size: 12px;
+  color: #dc2626;
+  background: #fef2f2;
+  border-radius: 12px;
+  border: 1px solid #fecaca;
+}
+
+/* Modal Styles */
+.qr-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.qr-modal {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 24px;
+  padding: 0;
+  max-width: 450px;
+  width: 95%;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.qr-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+  border-radius: 24px 24px 0 0;
+}
+
+.qr-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 32px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  position: relative;
+}
+
+.qr-modal-header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qr-modal-header h3::before {
+  content: '';
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Crect x='3' y='3' width='5' height='5'/%3E%3Crect x='3' y='16' width='5' height='5'/%3E%3Crect x='16' y='3' width='5' height='5'/%3E%3Crect x='11' y='11' width='2' height='2'/%3E%3C/svg%3E") no-repeat center;
+  mask-size: 18px 18px;
+}
+
+.close-btn {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  color: #6b7280;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  background: linear-gradient(135deg, #e2e8f0 0%, #d1d5db 100%);
+  color: #374151;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.qr-modal-content {
+  padding: 32px;
+}
+
+.qr-canvas-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  min-height: 240px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 16px;
+  border: 2px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.qr-canvas-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.qr-canvas {
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  position: relative;
+  z-index: 1;
+  background: white;
+  padding: 8px;
+}
+
+.qr-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 240px;
+  font-size: 16px;
+  color: #667eea;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 16px;
+  border: 2px dashed #c7d2fe;
+  font-weight: 500;
+}
+
+.qr-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 240px;
+  font-size: 16px;
+  color: #dc2626;
+  background: #fef2f2;
+  border-radius: 16px;
+  border: 2px dashed #fecaca;
+  text-align: center;
+  padding: 20px;
+  font-weight: 500;
+}
+
+.qr-url-display {
+  margin-bottom: 32px;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.qr-url-display p {
+  margin: 0;
+  font-size: 16px;
+  color: #64748b;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+.qr-url-display strong {
+  color: #1e293b;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.qr-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.download-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.download-btn:hover::before {
+  left: 100%;
+}
+
+.download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.download-btn:active {
+  transform: translateY(-1px);
+}
+
+/* QR Button in URL List */
+.qr-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #6b7280;
+  min-width: 36px;
+  height: 36px;
+}
+
+.qr-btn:hover {
+  background: #e5e7eb;
+  color: #374151;
+  transform: translateY(-1px);
+}
+
+.qr-btn:active {
+  transform: translateY(0);
+}
+
+.qr-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(20px);
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.9);
+    filter: blur(10px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-20px) scale(0.95);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .qr-modal {
+    margin: 24px;
+    width: calc(100% - 48px);
+  }
+  
+  .qr-modal-header {
+    padding: 24px 24px 20px;
+  }
+  
+  .qr-modal-header h3 {
+    font-size: 20px;
+  }
+  
+  .qr-modal-content {
+    padding: 24px;
+  }
+  
+  .qr-canvas-container {
+    min-height: 200px;
+  }
+  
+  .qr-loading,
+  .qr-error {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .qr-url-display {
+    margin-bottom: 24px;
+    padding: 16px;
+  }
+  
+  .qr-url-display p {
+    font-size: 14px;
+  }
+  
+  .download-btn {
+    padding: 14px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .qr-modal {
+    margin: 20px;
+    width: calc(100% - 40px);
+  }
+  
+  .qr-modal-header {
+    padding: 20px 20px 16px;
+  }
+  
+  .qr-modal-header h3 {
+    font-size: 18px;
+  }
+  
+  .qr-modal-content {
+    padding: 20px;
+  }
+  
+  .qr-canvas-container {
+    min-height: 180px;
+  }
+  
+  .qr-loading,
+  .qr-error {
+    width: 180px;
+    height: 180px;
+    font-size: 14px;
+  }
+  
+  .qr-url-display {
+    margin-bottom: 20px;
+    padding: 14px;
+  }
+  
+  .qr-url-display p {
+    font-size: 13px;
+  }
+  
+  .download-btn {
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .qr-modal {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+    color: #f9fafb;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .qr-modal-header {
+    background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+    border-bottom-color: #374151;
+  }
+  
+  .qr-modal-header h3 {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .close-btn {
+    background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+    border-color: #4b5563;
+    color: #9ca3af;
+  }
+  
+  .close-btn:hover {
+    background: linear-gradient(135deg, #4b5563 0%, #6b7280 100%);
+    color: #f3f4f6;
+  }
+  
+  .qr-canvas-container {
+    background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+    border-color: #374151;
+  }
+  
+  .qr-loading {
+    background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+    border-color: #374151;
+    color: #9ca3af;
+  }
+  
+  .qr-url-display {
+    background: linear-gradient(135deg, #111827 0%, #0f172a 100%);
+    border-color: #374151;
+  }
+  
+  .qr-url-display p {
+    color: #9ca3af;
+  }
+  
+  .qr-url-display strong {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+} 
